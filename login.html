@@ -10,83 +10,76 @@
             font-family: arial, sans-serif;
             background-color: #f0f0f0;
         }
-        .container {
+        .login-form {
             width: 300px;
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .container h2 {
+        .login-form h2 {
             text-align: center;
             margin-bottom: 20px;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        .form-group input {
+        .login-form input {
             width: 100%;
             height: 40px;
+            margin-bottom: 20px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        .btn {
+        .login-form button {
             width: 100%;
             height: 40px;
-            padding: 10px;
             background-color: #4caf50;
             color: #fff;
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        .btn:hover {
+        .login-form button:hover {
             background-color: #3e8e41;
         }
-        .error {
+        .error-message {
             color: #f00;
             font-size: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="login-form">
         <h2>bag shop login</h2>
         <form id="login-form">
-            <div class="form-group">
-                <label for="username">username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button class="btn" type="submit">login</button>
-            <div class="error" id="error-msg"></div>
+            <input type="text" id="username" placeholder="username">
+            <input type="password" id="password" placeholder="password">
+            <div class="error-message" id="error-message"></div>
+            <button type="submit">login</button>
         </form>
     </div>
     <script>
         const loginform = document.getelementbyid('login-form');
-        const errordiv = document.getelementbyid('error-msg');
+        const errormessage = document.getelementbyid('error-message');
         loginform.addeventlistener('submit', (e) => {
             e.preventdefault();
             const username = document.getelementbyid('username').value;
             const password = document.getelementbyid('password').value;
-            if (username === 'admin' && password === 'password') {
-                // login successful, redirect to dashboard
-                window.location.href = 'dashboard.html';
+            if (username === '' || password === '') {
+                errormessage.innertext = 'please fill in all fields';
             } else {
-                errordiv.innertext = 'invalid username or password';
+                // implement your login logic here
+                // for demonstration purposes, we'll just log the input values
+                console.log(`username: ${username}`, `password: ${password}`);
+                // clear the input fields
+                document.getelementbyid('username').value = '';
+                document.getelementbyid('password').value = '';
+                // clear the error message
+                errormessage.innertext = '';
             }
         });
     </script>
-</body>
 </html>
