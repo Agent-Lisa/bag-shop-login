@@ -8,7 +8,17 @@
     <style>
         body {
             font-family: arial, sans-serif;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #ff69b4, #ffa07a, #ffff00, #008000, #0000ff);
+            background-size: 1000px 1000px;
+            animation: move 10s infinite;
+        }
+        @keyframes move {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
         }
         .login-form {
             width: 300px;
@@ -49,37 +59,82 @@
             font-size: 14px;
             margin-bottom: 10px;
         }
+        .menu-page {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .menu-page ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menu-page li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu-page li:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
-    <div class="login-form">
-        <h2>bag shop login</h2>
-        <form id="login-form">
-            <input type="text" id="username" placeholder="username">
-            <input type="password" id="password" placeholder="password">
-            <div class="error-message" id="error-message"></div>
-            <button type="submit">login</button>
-        </form>
+    <div id="login-page">
+        <div class="login-form">
+            <h2>bag shop login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="username">
+                <input type="password" id="password" placeholder="password">
+                <div class="error-message" id="error-message"></div>
+                <button type="submit">login</button>
+            </form>
+        </div>
+    </div>
+    <div id="menu-page" style="display: none;">
+        <div class="menu-page">
+            <h2>bag shop menu</h2>
+            <ul>
+                <li>Bag 1 - $10</li>
+                <li>Bag 2 - $20</li>
+                <li>Bag 3 - $30</li>
+            </ul>
+            <button id="back-to-login">back to login</button>
+        </div>
     </div>
     <script>
-        const loginform = document.getelementbyid('login-form');
-        const errormessage = document.getelementbyid('error-message');
-        loginform.addeventlistener('submit', (e) => {
-            e.preventdefault();
-            const username = document.getelementbyid('username').value;
-            const password = document.getelementbyid('password').value;
+        const loginform = document.getElementById('login-form');
+        const errormessage = document.getElementById('error-message');
+        const loginPage = document.getElementById('login-page');
+        const menuPage = document.getElementById('menu-page');
+        const backToLoginButton = document.getElementById('back-to-login');
+        loginform.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
             if (username === '' || password === '') {
-                errormessage.innertext = 'please fill in all fields';
+                errormessage.innerText = 'please fill in all fields';
             } else {
                 // implement your login logic here
                 // for demonstration purposes, we'll just log the input values
                 console.log(`username: ${username}`, `password: ${password}`);
                 // clear the input fields
-                document.getelementbyid('username').value = '';
-                document.getelementbyid('password').value = '';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
                 // clear the error message
-                errormessage.innertext = '';
+                errormessage.innerText = '';
+                // show menu page
+                loginPage.style.display = 'none';
+                menuPage.style.display = 'block';
             }
         });
+        backToLoginButton.addEventListener('click', () => {
+            loginPage.style.display = 'block';
+            menuPage.style.display = 'none';
+        });
     </script>
+</body>
 </html>
